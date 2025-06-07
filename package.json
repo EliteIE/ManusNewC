@@ -1,0 +1,53 @@
+{
+  "name": "cloudcontrol",
+  "version": "1.0.0",
+  "description": "Sistema de Gestão Empresarial",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -s .",
+    "build": "node build.js",
+    "deploy": "npm run build && firebase deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gestão",
+    "empresarial",
+    "erp",
+    "crm",
+    "estoque",
+    "vendas",
+    "financeiro"
+  ],
+  "author": "EliteIE",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-css": "^5.3.2",
+    "html-minifier": "^4.0.0",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "serve": "^14.2.0",
+    "terser": "^5.16.8"
+  },
+  "dependencies": {
+    "firebase": "^9.22.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EliteIE/CloudControl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EliteIE/CloudControl/issues"
+  },
+  "homepage": "https://github.com/EliteIE/CloudControl#readme"
+}
+
