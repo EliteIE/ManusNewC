@@ -373,13 +373,8 @@
         import { showNotification } from './utils/helpers.js';
         import { isValidEmail, isValidPassword } from './utils/validators.js';
         
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        
         // Inicializar serviço de autenticação
-        authService.init(auth, db);
+        authService.init();
         
         // Elementos do DOM
         const loginForm = document.getElementById('loginForm');
