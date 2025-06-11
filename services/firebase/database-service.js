@@ -14,6 +14,7 @@ class DatabaseService {
         this.db = null;
         this.storage = null;
         this.auth = null;
+        this.tenantId = null;
     }
 
     /**
@@ -31,8 +32,32 @@ class DatabaseService {
         this.db = firestore;
         this.storage = storage;
         this.auth = auth;
+        this.tenantId = null;
         
         console.log('✅ Serviço de banco de dados inicializado');
+    }
+
+    /**
+     * Define o tenant atual
+     * @param {string|null} tenantId - ID do tenant
+     */
+    setTenant(tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    /**
+     * Obtém referência a uma coleção considerando o tenant
+     * @param {string} collectionName - Nome da coleção
+     * @returns {Object} Referência da coleção
+     * @private
+     */
+    getCollectionRef(collectionName) {
+        if (!this.db) {
+            throw new Error('Serviço de banco de dados não inicializado');
+        }
+
+        const path = this.tenantId ? `tenants/${this.tenantId}/${collectionName}` : collectionName;
+        return this.db.collection(path);
     }
 
     /**
@@ -41,11 +66,7 @@ class DatabaseService {
      * @returns {Object} Referência da coleção
      */
     collection(collectionName) {
-        if (!this.db) {
-            throw new Error('Serviço de banco de dados não inicializado');
-        }
-        
-        return this.db.collection(collectionName);
+        return this.getCollectionRef(collectionName);
     }
 
     /**
@@ -60,7 +81,7 @@ class DatabaseService {
         }
         
         try {
-            const docRef = this.db.collection(collectionName).doc(docId);
+            const docRef = this.getCollectionRef(collectionName).doc(docId);
             const doc = await docRef.get();
             
             if (doc.exists) {
@@ -93,7 +114,7 @@ class DatabaseService {
         }
         
         try {
-            let query = this.db.collection(collectionName);
+            let query = this.getCollectionRef(collectionName);
             
             // Aplicar filtros
             if (options.where && Array.isArray(options.where)) {
@@ -147,7 +168,7 @@ class DatabaseService {
                 createdBy: this.auth?.currentUser?.uid || null
             };
             
-            const docRef = await this.db.collection(collectionName).add(docData);
+            const docRef = await this.getCollectionRef(collectionName).add(docData);
             
             return {
                 id: docRef.id,
@@ -180,7 +201,7 @@ class DatabaseService {
                 updatedBy: this.auth?.currentUser?.uid || null
             };
             
-            const docRef = this.db.collection(collectionName).doc(docId);
+            const docRef = this.getCollectionRef(collectionName).doc(docId);
             await docRef.update(docData);
             
             // Obter documento atualizado
@@ -209,7 +230,7 @@ class DatabaseService {
         }
         
         try {
-            await this.db.collection(collectionName).doc(docId).delete();
+            await this.getCollectionRef(collectionName).doc(docId).delete();
         } catch (error) {
             console.error(`❌ Erro ao excluir documento ${docId} da coleção ${collectionName}:`, error);
             showNotification('Erro ao excluir dados. Tente novamente.', 'error');
@@ -331,7 +352,7 @@ class DatabaseService {
             throw new Error('Serviço de banco de dados não inicializado');
         }
         
-        const unsubscribe = this.db.collection(collectionName).doc(docId)
+        const unsubscribe = this.getCollectionRef(collectionName).doc(docId)
             .onSnapshot(doc => {
                 if (doc.exists) {
                     callback({
@@ -360,7 +381,7 @@ class DatabaseService {
             throw new Error('Serviço de banco de dados não inicializado');
         }
         
-        let query = this.db.collection(collectionName);
+        let query = this.getCollectionRef(collectionName);
         
         // Aplicar filtros
         if (options.where && Array.isArray(options.where)) {
