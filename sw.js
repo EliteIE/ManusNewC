@@ -17,6 +17,7 @@ const PRECACHE_ASSETS = [
     '/utils/formatters.js',
     '/utils/validators.js',
     '/utils/helpers.js',
+    '/offline.html',
     '/services/firebase/config.js',
     '/services/firebase/auth-service.js',
     '/assets/images/logo.png',
