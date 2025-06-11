@@ -26,6 +26,10 @@ class ChatWidget {
         this.container.id = this.containerId;
         this.container.className = 'chat-container hidden';
         this.container.innerHTML = `
+            <div class="chat-header">
+                <span>Assistente</span>
+                <button id="chatClose" class="chat-close">&times;</button>
+            </div>
             <div class="chat-messages" id="chatMessages"></div>
             <div class="chat-input-area">
                 <input id="chatInput" type="text" placeholder="Pergunte algo..." />
@@ -44,9 +48,13 @@ class ChatWidget {
 
         const input = this.container.querySelector('#chatInput');
         const send = this.container.querySelector('#chatSend');
+        const close = this.container.querySelector('#chatClose');
         send.addEventListener('click', () => this.handleSend());
         input.addEventListener('keypress', e => {
             if (e.key === 'Enter') this.handleSend();
+        });
+        close.addEventListener('click', () => {
+            this.container.classList.add('hidden');
         });
     }
 
