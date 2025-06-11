@@ -132,9 +132,10 @@ self.addEventListener('fetch', event => {
                     })
                     .catch(error => {
                         console.error('❌ Service Worker: Erro de fetch:', error);
-                        
+
                         // Para páginas HTML, retornar página offline
-                        if (event.request.headers.get('accept').includes('text/html')) {
+                        const acceptHeader = event.request.headers.get('accept');
+                        if (acceptHeader && acceptHeader.includes('text/html')) {
                             return caches.match('/offline.html');
                         }
                         
