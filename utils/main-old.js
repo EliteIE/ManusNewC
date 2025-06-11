@@ -866,11 +866,11 @@ function setupProductActionListeners() {
             e.preventDefault();
             console.log("🔘 Botão adicionar produto clicado");
             
-            if (!EliteControl.elements.productModal) {
+            if (!CloudControl.elements.productModal) {
                 initializeModalElements();
             }
             
-            if (!EliteControl.state.modalEventListenersAttached && EliteControl.elements.productModal) {
+            if (!CloudControl.state.modalEventListenersAttached && CloudControl.elements.productModal) {
                 setupModalEventListeners();
             }
             
@@ -886,11 +886,11 @@ function setupProductActionListeners() {
             const productId = editButton.dataset.productId;
             
             if (productId) {
-                if (!EliteControl.elements.productModal) {
+                if (!CloudControl.elements.productModal) {
                     initializeModalElements();
                 }
                 
-                if (!EliteControl.state.modalEventListenersAttached && EliteControl.elements.productModal) {
+                if (!CloudControl.state.modalEventListenersAttached && CloudControl.elements.productModal) {
                     setupModalEventListeners();
                 }
                 
@@ -1033,7 +1033,7 @@ async function findUserByEmail(email) {
 async function createTestUser(uid, email) {
     if (!window.db) return null;
     try {
-        const testUserData = EliteControl.testUsers[email];
+        const testUserData = CloudControl.testUsers[email];
         if (testUserData) {
             await db.collection('users').doc(uid).set({
                 ...testUserData,
@@ -1258,17 +1258,17 @@ window.openProductModal = openProductModal;
 window.closeCustomModal = closeCustomModal;
 
 // Log de inicialização
-console.log("✅ EliteControl v2.0 - main.js carregado e corrigido!");
+console.log("✅ CloudControl v2.0 - main.js carregado e corrigido!");
 console.log("🔧 Melhorias implementadas:");
 console.log("   - Sistema de vendas simplificado");
 console.log("   - Verificação robusta de serviços");
 console.log("   - Tratamento de erros melhorado");
 console.log("   - Interface responsiva e moderna");
 console.log("   - Compatibilidade com Firebase v8");
-// js/main.js - Sistema EliteControl v2.0 - CORRIGIDO E OTIMIZADO
+// js/main.js - Sistema CloudControl v2.0 - CORRIGIDO E OTIMIZADO
 
-// Namespace para o EliteControl
-const EliteControl = {
+// Namespace para o CloudControl
+const CloudControl = {
     // Elementos do modal de produto
     elements: {
         productModal: null,
@@ -1327,7 +1327,7 @@ const sampleProducts = [
 // === INICIALIZAÇÃO ===
 
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🚀 EliteControl v2.0 inicializando...');
+    console.log('🚀 CloudControl v2.0 inicializando...');
 
     try {
         // Aguardar serviços essenciais
@@ -1345,8 +1345,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             showTemporaryAlert("Erro: Sistema de autenticação não disponível", "error");
         }
 
-        EliteControl.state.isInitialized = true;
-        console.log('✅ EliteControl inicializado com sucesso');
+        CloudControl.state.isInitialized = true;
+        console.log('✅ CloudControl inicializado com sucesso');
 
     } catch (error) {
         console.error('❌ Erro na inicialização:', error);
@@ -1411,18 +1411,18 @@ function initializeModalElements() {
         return false;
     }
     
-    EliteControl.elements.productModal = modalElement;
-    EliteControl.elements.productForm = document.getElementById('productForm');
-    EliteControl.elements.productModalTitle = document.getElementById('productModalTitle');
-    EliteControl.elements.productIdField = document.getElementById('productId');
-    EliteControl.elements.productNameField = document.getElementById('productName');
-    EliteControl.elements.productCategoryField = document.getElementById('productCategory');
-    EliteControl.elements.productPriceField = document.getElementById('productPrice');
-    EliteControl.elements.productStockField = document.getElementById('productStock');
-    EliteControl.elements.productLowStockAlertField = document.getElementById('productLowStockAlert');
-    EliteControl.elements.closeProductModalButton = document.getElementById('closeProductModalButton');
-    EliteControl.elements.cancelProductFormButton = document.getElementById('cancelProductFormButton');
-    EliteControl.elements.saveProductButton = document.getElementById('saveProductButton');
+    CloudControl.elements.productModal = modalElement;
+    CloudControl.elements.productForm = document.getElementById('productForm');
+    CloudControl.elements.productModalTitle = document.getElementById('productModalTitle');
+    CloudControl.elements.productIdField = document.getElementById('productId');
+    CloudControl.elements.productNameField = document.getElementById('productName');
+    CloudControl.elements.productCategoryField = document.getElementById('productCategory');
+    CloudControl.elements.productPriceField = document.getElementById('productPrice');
+    CloudControl.elements.productStockField = document.getElementById('productStock');
+    CloudControl.elements.productLowStockAlertField = document.getElementById('productLowStockAlert');
+    CloudControl.elements.closeProductModalButton = document.getElementById('closeProductModalButton');
+    CloudControl.elements.cancelProductFormButton = document.getElementById('cancelProductFormButton');
+    CloudControl.elements.saveProductButton = document.getElementById('saveProductButton');
     
     console.log("✅ Elementos do modal inicializados");
     return true;
@@ -1431,21 +1431,21 @@ function initializeModalElements() {
 function setupModalEventListeners() {
     console.log("🔧 Configurando event listeners do modal de produto");
 
-    if (EliteControl.elements.closeProductModalButton) {
-        EliteControl.elements.closeProductModalButton.addEventListener('click', handleModalClose);
+    if (CloudControl.elements.closeProductModalButton) {
+        CloudControl.elements.closeProductModalButton.addEventListener('click', handleModalClose);
     }
 
-    if (EliteControl.elements.cancelProductFormButton) {
-        EliteControl.elements.cancelProductFormButton.addEventListener('click', handleModalClose);
+    if (CloudControl.elements.cancelProductFormButton) {
+        CloudControl.elements.cancelProductFormButton.addEventListener('click', handleModalClose);
     }
 
-    if (EliteControl.elements.productForm) {
-        EliteControl.elements.productForm.addEventListener('submit', handleProductFormSubmit);
+    if (CloudControl.elements.productForm) {
+        CloudControl.elements.productForm.addEventListener('submit', handleProductFormSubmit);
     }
 
-    if (EliteControl.elements.productModal) {
-        EliteControl.elements.productModal.addEventListener('click', (e) => {
-            if (e.target === EliteControl.elements.productModal && !EliteControl.state.isModalProcessing) {
+    if (CloudControl.elements.productModal) {
+        CloudControl.elements.productModal.addEventListener('click', (e) => {
+            if (e.target === CloudControl.elements.productModal && !CloudControl.state.isModalProcessing) {
                 handleModalClose();
             }
         });
@@ -1453,18 +1453,18 @@ function setupModalEventListeners() {
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && 
-            EliteControl.elements.productModal && 
-            !EliteControl.elements.productModal.classList.contains('hidden') && 
-            !EliteControl.state.isModalProcessing) {
+            CloudControl.elements.productModal && 
+            !CloudControl.elements.productModal.classList.contains('hidden') && 
+            !CloudControl.state.isModalProcessing) {
             handleModalClose();
         }
     });
     
-    EliteControl.state.modalEventListenersAttached = true;
+    CloudControl.state.modalEventListenersAttached = true;
 }
 
 function handleModalClose() {
-    if (EliteControl.state.isModalProcessing) {
+    if (CloudControl.state.isModalProcessing) {
         console.log("⚠️ Modal está processando, cancelamento bloqueado");
         return;
     }
@@ -1472,7 +1472,7 @@ function handleModalClose() {
     console.log("❌ Fechando modal de produto");
 
     try {
-        if (EliteControl.elements.productForm) EliteControl.elements.productForm.reset();
+        if (CloudControl.elements.productForm) CloudControl.elements.productForm.reset();
 
         // Limpar campos específicos
         const fields = [
@@ -1481,26 +1481,26 @@ function handleModalClose() {
         ];
         
         fields.forEach(fieldName => {
-            if (EliteControl.elements[fieldName]) {
-                EliteControl.elements[fieldName].value = '';
+            if (CloudControl.elements[fieldName]) {
+                CloudControl.elements[fieldName].value = '';
             }
         });
 
-        if (EliteControl.elements.saveProductButton) {
-            EliteControl.elements.saveProductButton.disabled = false;
-            EliteControl.elements.saveProductButton.innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Produto';
+        if (CloudControl.elements.saveProductButton) {
+            CloudControl.elements.saveProductButton.disabled = false;
+            CloudControl.elements.saveProductButton.innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Produto';
         }
 
-        if (EliteControl.elements.productModal) {
-            EliteControl.elements.productModal.classList.add('hidden');
+        if (CloudControl.elements.productModal) {
+            CloudControl.elements.productModal.classList.add('hidden');
         }
 
         console.log("✅ Modal fechado com sucesso");
 
     } catch (error) {
         console.error("❌ Erro ao fechar modal:", error);
-        if (EliteControl.elements.productModal) {
-            EliteControl.elements.productModal.classList.add('hidden');
+        if (CloudControl.elements.productModal) {
+            CloudControl.elements.productModal.classList.add('hidden');
         }
     }
 }
@@ -1516,7 +1516,7 @@ function openProductModal(product = null) {
     }
     
     // Inicializar elementos se necessário
-    if (!EliteControl.elements.productModal) {
+    if (!CloudControl.elements.productModal) {
         const success = initializeModalElements();
         if (!success) {
             console.error("❌ Falha ao inicializar elementos do modal");
@@ -1526,55 +1526,55 @@ function openProductModal(product = null) {
     }
 
     // Configurar event listeners se necessário
-    if (!EliteControl.state.modalEventListenersAttached) {
+    if (!CloudControl.state.modalEventListenersAttached) {
         setupModalEventListeners();
     }
 
     // Resetar formulário
-    if (EliteControl.elements.productForm) {
-        EliteControl.elements.productForm.reset();
+    if (CloudControl.elements.productForm) {
+        CloudControl.elements.productForm.reset();
     }
 
     if (product) {
         // Modo edição
-        if (EliteControl.elements.productModalTitle) 
-            EliteControl.elements.productModalTitle.textContent = 'Editar Produto';
-        if (EliteControl.elements.productIdField) 
-            EliteControl.elements.productIdField.value = product.id;
-        if (EliteControl.elements.productNameField) 
-            EliteControl.elements.productNameField.value = product.name;
-        if (EliteControl.elements.productCategoryField) 
-            EliteControl.elements.productCategoryField.value = product.category;
-        if (EliteControl.elements.productPriceField) 
-            EliteControl.elements.productPriceField.value = product.price;
-        if (EliteControl.elements.productStockField) 
-            EliteControl.elements.productStockField.value = product.stock;
-        if (EliteControl.elements.productLowStockAlertField) 
-            EliteControl.elements.productLowStockAlertField.value = product.lowStockAlert || 10;
+        if (CloudControl.elements.productModalTitle) 
+            CloudControl.elements.productModalTitle.textContent = 'Editar Produto';
+        if (CloudControl.elements.productIdField) 
+            CloudControl.elements.productIdField.value = product.id;
+        if (CloudControl.elements.productNameField) 
+            CloudControl.elements.productNameField.value = product.name;
+        if (CloudControl.elements.productCategoryField) 
+            CloudControl.elements.productCategoryField.value = product.category;
+        if (CloudControl.elements.productPriceField) 
+            CloudControl.elements.productPriceField.value = product.price;
+        if (CloudControl.elements.productStockField) 
+            CloudControl.elements.productStockField.value = product.stock;
+        if (CloudControl.elements.productLowStockAlertField) 
+            CloudControl.elements.productLowStockAlertField.value = product.lowStockAlert || 10;
         
         console.log("✅ Produto carregado para edição:", product.name);
     } else {
         // Modo criação
-        if (EliteControl.elements.productModalTitle) 
-            EliteControl.elements.productModalTitle.textContent = 'Adicionar Novo Produto';
-        if (EliteControl.elements.productIdField) 
-            EliteControl.elements.productIdField.value = '';
-        if (EliteControl.elements.productLowStockAlertField) 
-            EliteControl.elements.productLowStockAlertField.value = 10;
+        if (CloudControl.elements.productModalTitle) 
+            CloudControl.elements.productModalTitle.textContent = 'Adicionar Novo Produto';
+        if (CloudControl.elements.productIdField) 
+            CloudControl.elements.productIdField.value = '';
+        if (CloudControl.elements.productLowStockAlertField) 
+            CloudControl.elements.productLowStockAlertField.value = 10;
         
         console.log("✅ Modal configurado para novo produto");
     }
 
     // Mostrar modal
-    if (EliteControl.elements.productModal) {
-        EliteControl.elements.productModal.classList.remove('hidden');
+    if (CloudControl.elements.productModal) {
+        CloudControl.elements.productModal.classList.remove('hidden');
         console.log("✅ Modal exibido");
     }
     
     // Focar no primeiro campo
-    if (EliteControl.elements.productNameField) {
+    if (CloudControl.elements.productNameField) {
         setTimeout(() => {
-            EliteControl.elements.productNameField.focus();
+            CloudControl.elements.productNameField.focus();
         }, 100);
     }
 }
@@ -1582,7 +1582,7 @@ function openProductModal(product = null) {
 async function handleProductFormSubmit(event) {
     event.preventDefault();
 
-    if (EliteControl.state.isModalProcessing) {
+    if (CloudControl.state.isModalProcessing) {
         console.log("⚠️ Formulário já está sendo processado");
         return;
     }
@@ -1593,22 +1593,22 @@ async function handleProductFormSubmit(event) {
         return;
     }
 
-    EliteControl.state.isModalProcessing = true;
+    CloudControl.state.isModalProcessing = true;
 
-    const id = EliteControl.elements.productIdField?.value;
+    const id = CloudControl.elements.productIdField?.value;
 
     const productData = {
-        name: EliteControl.elements.productNameField.value.trim(),
-        category: EliteControl.elements.productCategoryField.value.trim(),
-        price: parseFloat(EliteControl.elements.productPriceField.value),
-        stock: parseInt(EliteControl.elements.productStockField.value),
-        lowStockAlert: parseInt(EliteControl.elements.productLowStockAlertField?.value || 10),
+        name: CloudControl.elements.productNameField.value.trim(),
+        category: CloudControl.elements.productCategoryField.value.trim(),
+        price: parseFloat(CloudControl.elements.productPriceField.value),
+        stock: parseInt(CloudControl.elements.productStockField.value),
+        lowStockAlert: parseInt(CloudControl.elements.productLowStockAlertField?.value || 10),
         description: document.getElementById('productDescription')?.value?.trim() || ''
     };
 
-    if (EliteControl.elements.saveProductButton) {
-        EliteControl.elements.saveProductButton.disabled = true;
-        EliteControl.elements.saveProductButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Salvando...';
+    if (CloudControl.elements.saveProductButton) {
+        CloudControl.elements.saveProductButton.disabled = true;
+        CloudControl.elements.saveProductButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Salvando...';
     }
 
     try {
@@ -1631,11 +1631,11 @@ async function handleProductFormSubmit(event) {
         console.error("❌ Erro ao salvar produto:", error);
         showTemporaryAlert('Erro ao salvar produto: ' + error.message, 'error');
     } finally {
-        EliteControl.state.isModalProcessing = false;
+        CloudControl.state.isModalProcessing = false;
 
-        if (EliteControl.elements.saveProductButton) {
-            EliteControl.elements.saveProductButton.disabled = false;
-            EliteControl.elements.saveProductButton.innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Produto';
+        if (CloudControl.elements.saveProductButton) {
+            CloudControl.elements.saveProductButton.disabled = false;
+            CloudControl.elements.saveProductButton.innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Produto';
         }
     }
 }
@@ -1650,45 +1650,45 @@ function validateProductForm() {
     };
 
     for (const [fieldName, label] of Object.entries(requiredFields)) {
-        if (!EliteControl.elements[fieldName]) {
+        if (!CloudControl.elements[fieldName]) {
             showTemporaryAlert(`Campo ${label} não encontrado`, "error");
             return false;
         }
     }
 
-    const name = EliteControl.elements.productNameField.value.trim();
-    const category = EliteControl.elements.productCategoryField.value.trim();
-    const price = parseFloat(EliteControl.elements.productPriceField.value);
-    const stock = parseInt(EliteControl.elements.productStockField.value);
-    const lowStockAlert = parseInt(EliteControl.elements.productLowStockAlertField.value);
+    const name = CloudControl.elements.productNameField.value.trim();
+    const category = CloudControl.elements.productCategoryField.value.trim();
+    const price = parseFloat(CloudControl.elements.productPriceField.value);
+    const stock = parseInt(CloudControl.elements.productStockField.value);
+    const lowStockAlert = parseInt(CloudControl.elements.productLowStockAlertField.value);
 
     if (!name) {
         showTemporaryAlert("Nome do produto é obrigatório", "warning");
-        EliteControl.elements.productNameField.focus();
+        CloudControl.elements.productNameField.focus();
         return false;
     }
 
     if (!category) {
         showTemporaryAlert("Categoria é obrigatória", "warning");
-        EliteControl.elements.productCategoryField.focus();
+        CloudControl.elements.productCategoryField.focus();
         return false;
     }
 
     if (isNaN(price) || price < 0) {
         showTemporaryAlert("Preço deve ser um número válido e não negativo", "warning");
-        EliteControl.elements.productPriceField.focus();
+        CloudControl.elements.productPriceField.focus();
         return false;
     }
 
     if (isNaN(stock) || stock < 0) {
         showTemporaryAlert("Estoque deve ser um número válido e não negativo", "warning");
-        EliteControl.elements.productStockField.focus();
+        CloudControl.elements.productStockField.focus();
         return false;
     }
 
     if (isNaN(lowStockAlert) || lowStockAlert < 1) {
         showTemporaryAlert("Alerta de estoque baixo deve ser um número válido maior que 0", "warning");
-        EliteControl.elements.productLowStockAlertField.focus();
+        CloudControl.elements.productLowStockAlertField.focus();
         return false;
     }
 
@@ -1714,7 +1714,7 @@ async function handleAuthStateChange(user) {
                 userData = await findUserByEmail(user.email);
             }
 
-            if (!userData && EliteControl.testUsers[user.email]) {
+            if (!userData && CloudControl.testUsers[user.email]) {
                 userData = await createTestUser(user.uid, user.email);
             }
 
@@ -1789,7 +1789,7 @@ async function handleLogin(e) {
                 userData = await findUserByEmail(email);
             }
 
-            if (!userData && EliteControl.testUsers[email]) {
+            if (!userData && CloudControl.testUsers[email]) {
                 userData = await createTestUser(user.uid, email);
             }
 
@@ -1921,7 +1921,7 @@ function initializeUI(currentUser) {
         !sessionStorage.getItem('welcomeAlertShown')) {
 
         const userName = currentUser.name || currentUser.email.split('@')[0];
-        showTemporaryAlert(`Bem-vindo, ${userName}! EliteControl v2.0`, 'success', 5000);
+        showTemporaryAlert(`Bem-vindo, ${userName}! CloudControl v2.0`, 'success', 5000);
         sessionStorage.setItem('welcomeAlertShown', 'true');
     }
 }
@@ -2035,7 +2035,7 @@ function initializeNotifications() {
             {
                 id: 'welcome',
                 title: 'Bem-vindo!',
-                message: 'EliteControl v2.0 está pronto para uso.',
+                message: 'CloudControl v2.0 está pronto para uso.',
                 time: 'Agora',
                 read: false,
                 type: 'success'
