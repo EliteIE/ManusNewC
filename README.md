@@ -82,8 +82,7 @@ cloudcontrol/
 │   └── shared/
 ├── services/
 │   ├── firebase/
-│   ├── crm/
-│   └── analytics/
+│   └── crm/
 ├── utils/
 │   ├── formatters.js
 │   ├── validators.js
@@ -97,7 +96,6 @@ cloudcontrol/
 │   ├── login.html
 │   ├── dashboard.html
 │   └── ...
-├── tests/
 ├── docs/
 ├── index.html
 └── sw.js
