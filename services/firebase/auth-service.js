@@ -4,7 +4,7 @@
  */
 
 import { firebaseConfig, getFirebaseApp, getFirestore, getAuth, getStorage } from './config.js';
-import { showNotification } from '../../utils/helpers.js';
+import { showNotification, generateUniqueId } from '../../utils/helpers.js';
 
 /**
  * Classe para gerenciar autenticação com Firebase
@@ -164,7 +164,7 @@ class AuthService {
      * @param {string} name - Nome do usuário
      * @returns {Promise<Object>} Usuário criado
      */
-    async registerWithEmailAndPassword(email, password, name) {
+    async registerWithEmailAndPassword(email, password, name, tenantId = null) {
         if (!this.auth || !this.db) {
             throw new Error('Serviço de autenticação não inicializado');
         }
@@ -179,11 +179,13 @@ class AuthService {
             });
             
             // Criar perfil no Firestore
+            const tenant = tenantId || generateUniqueId('tenant-');
             await this.db.collection('users').doc(user.uid).set({
                 uid: user.uid,
                 email: email,
                 name: name,
                 role: 'user',
+                tenantId: tenant,
                 createdAt: new Date()
             });
             
