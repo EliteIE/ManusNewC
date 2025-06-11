@@ -22,6 +22,18 @@ CloudControl é um sistema de gestão empresarial completo, desenvolvido para in
 - **PWA**: Service Worker para funcionamento offline
 - **Responsividade**: Design adaptável para dispositivos móveis e desktop
 
+### Arquitetura Multi-Tenant
+
+O sistema organiza os dados de cada empresa em coleções dentro do caminho
+`tenants/{tenantId}` no Firestore. Isso permite isolar informações de forma segura
+e facilita o gerenciamento de múltiplos clientes na mesma infraestrutura.
+
+### Busca Inteligente
+
+O CloudControl possui um serviço de busca que localiza rapidamente produtos pelo
+nome. Essa camada de "IA" pode ser expandida para responder a perguntas dos
+usuários, como consultar o preço de um produto diretamente no chat.
+
 ## 📋 Pré-requisitos
 
 - Navegador moderno (Chrome, Firefox, Safari, Edge)
